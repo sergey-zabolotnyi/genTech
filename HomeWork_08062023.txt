@@ -1,0 +1,48 @@
+
+1 уровень сложности: Работа с датой и временем. Используя БД SHOP:
+
+Определить, сколько покупок было совершено в каждый месяц. Отсортировать строки в порядке возрастания количества покупок. Вывести два поля - номер месяца и количество покупок
+
+select date_format(odate, '%M') AS Month, count(*) as PurchaseCount
+from orders
+group by Month
+order by PurchaseCount asc;
+
+Определить, в какой месяц было совершено больше всего покупок.  Вывести два поля - номер месяца и количество покупок
+
+select date_format(odate, '%M') AS Month, count(*) as PurchaseCount
+from orders
+group by Month
+order by PurchaseCount desc;
+limit 1;
+
+Используя БД hr:
+
+Найти среднюю зарплату по компании
+
+select avg(salary) as AvgSalary
+From employees;
+
+Найти общее количество департаментов
+
+select count(*) from departments;
+
+Найти количество департаментов, в которых никто не работает
+
+select count(*) as DepartmentCount
+from departments t1
+left join employees t2
+on t1.department_id = t2.department_id
+where t2.department_id is null;
+
+Найти среднюю зарплату в департаменте с id 90
+
+select avg(salary) as AverageSalary
+from employees
+where department_id = 90;
+
+Найти самую большую зарплату среди сотрудников, работающих в департаментах с id 70 и 80
+
+select max(salary) as MaxSalary
+from employees
+where department_id in (70,80);
